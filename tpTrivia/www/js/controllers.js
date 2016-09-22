@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
-.controller('DashCtrl', function($scope,$timeout,$http) {
+.controller('DashCtrl', function($scope,$timeout,$http,$state) {
 
 
 $scope.miBoton = false;
@@ -12,11 +12,12 @@ $scope.miBoton = false;
   $scope.miBoton = true;
     var name = $('#nameInput').val();
     messagesRef.push({usuario:name});
+    $state.go('tab.chats');
   }
 
 })
 
-.controller('ChatsCtrl', function($scope,$timeout,$window) {
+.controller('ChatsCtrl', function($scope,$timeout,$window,$state,$cordovaVibration,$cordovaNativeAudio,$ionicPlatform) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -24,16 +25,14 @@ $scope.miBoton = false;
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-$scope.MisPreguntas=[];
+$scope.Preguntas = [];
+ $scope.Preguntas = new Firebase('https://tptrivia.firebaseio.com/Preguntas');
 
- var Preguntas = new Firebase('https://tptrivia.firebaseio.com/Preguntas');
+$scope.NumeroRandom = Math.floor((Math.random() * 3) + 1);
 
-$scope.NumeroRandom = Math.floor((Math.random() * 2) + 1);
 
-$scope.pregElegida;
-$scope.Respuesta;
-
- Preguntas.on('child_added', function (snapshot) {
+console.log($scope.Preguntas);
+ $scope.Preguntas.on('child_added', function (snapshot) {
   $timeout(function(){
 
     var message = snapshot.val();
@@ -44,7 +43,7 @@ $scope.Respuesta;
     $scope.Respuesta = message.Respuesta;
 
    // $scope.MisPreguntas.push(message);
-    console.log(message);
+
     console.log(message.Respuesta);
     }
 
@@ -54,40 +53,33 @@ $scope.Respuesta;
 
   $scope.Validar = function(RespuestaElegida)
   {
-    
-  $('.Respuesta').prop( "disabled", true );
-    
 
     if(RespuestaElegida === $scope.Respuesta)
     {
-      console.log(RespuestaElegida);
-      if(RespuestaElegida == "San Lorenzo" )
-      {
-        RespuestaElegida = 'op3';
-      }
 
-      if(RespuestaElegida == "Lionel Messi" )
-      {
-        RespuestaElegida = 'op1';
-      }
-
-      document.getElementById(RespuestaElegida).className = "button button-large  button-balanced";
-
+      $cordovaNativeAudio.play('correcto');
+      document.getElementById(RespuestaElegida).className = "button p button-large  button-balanced";
+      try{
+      $cordovaVibration.vibrate(300);
+          
+        }
+        catch(ex)
+        {
+          console.log(ex);
+        }
     }else
     {
-      if(RespuestaElegida == "Cristiano Ronaldo" || RespuestaElegida == "River")
-      {
-        RespuestaElegida = 'op2';
-      }
-      if(RespuestaElegida == "Boca")
-      {
-        RespuestaElegida = 'op1';
-      }
-      if(RespuestaElegida == "Johann Cruyff")
-      {
-       RespuestaElegida = 'op3';
-      }
-     document.getElementById(RespuestaElegida).className = "button button-large button-assertive";
+    $cordovaNativeAudio.play('incorrecto');
+     document.getElementById(RespuestaElegida).className = "button p button-large button-assertive";
+     try{ 
+
+       $cordovaVibration.vibrate([300,300,300]);
+       
+                   }
+        catch(ex)
+        {
+          console.log(ex);
+        }
     }
 
   }
@@ -103,6 +95,7 @@ $scope.Respuesta;
   }
 
     $scope.siguientePregunta = function() {
+    
    $window.location.reload();
   }
 

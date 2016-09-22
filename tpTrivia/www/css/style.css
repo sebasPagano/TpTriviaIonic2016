@@ -2,7 +2,7 @@
 
 .padding
 {
-    background-image:url(../img/pelota.jpeg);
+    background-image:url(../img/Champions.jpg);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -23,11 +23,8 @@
     box-shadow: 0 0 0 3px #fff, 0 0 0 4px #999, 0 2px 5px 4px rgba(0,0,0,.2);
 }
 
-.correcta
-{
-    color:#0CFA34;
-}
 
 .p {
   font: oblique bold 120% cursive;
+
 }
