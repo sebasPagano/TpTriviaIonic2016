@@ -23,13 +23,10 @@ angular.module('starter', ['ionic', 'starter.controllers','ui.router'])
     if(window.plugins && window.plugins.NativeAudio)
     { 
 
-
       $cordovaNativeAudio.preloadComplex('correcto', 'audio/correcto.mp3', 1, 1);
       $cordovaNativeAudio.preloadComplex('incorrecto', 'audio/incorrecto.mp3', 1, 1);
+      $cordovaNativeAudio.preloadComplex('Futbol', 'audio/Futbol.mp3', 1, 1);
  
-
-
-
     }
 
   });

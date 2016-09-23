@@ -1,6 +1,20 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('DashCtrl', function($scope,$timeout,$http,$state) {
+.controller('DashCtrl', function($scope,$timeout,$state,$cordovaNativeAudio,$ionicPlatform) {
+
+
+$ionicPlatform.ready(function(){
+  try
+  {
+    $cordovaNativeAudio.loop('Futbol');
+   
+  }
+  catch(ex)
+  {
+    console.log(ex);
+  }
+
+  });
 
 
 $scope.miBoton = false;
@@ -15,6 +29,8 @@ $scope.miBoton = false;
     $state.go('tab.chats');
   }
 
+
+
 })
 
 .controller('ChatsCtrl', function($scope,$timeout,$window,$state,$cordovaVibration,$cordovaNativeAudio,$ionicPlatform) {
@@ -28,7 +44,7 @@ $scope.miBoton = false;
 $scope.Preguntas = [];
  $scope.Preguntas = new Firebase('https://tptrivia.firebaseio.com/Preguntas');
 
-$scope.NumeroRandom = Math.floor((Math.random() * 3) + 1);
+$scope.NumeroRandom = Math.floor((Math.random() * 6) + 1);
 
 
 console.log($scope.Preguntas);

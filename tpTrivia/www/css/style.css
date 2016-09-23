@@ -28,3 +28,9 @@
   font: oblique bold 120% cursive;
 
 }
+
+.imagenPosicionada{
+  position: absolute;
+  top:  50px; 
+  left: -10px;
+}
