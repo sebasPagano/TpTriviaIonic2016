@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('DashCtrl', function($scope,$timeout,$state,$cordovaNativeAudio,$ionicPlatform) {
+.controller('InicioCtrl', function($scope,$timeout,$state,$cordovaNativeAudio,$ionicPlatform) {
 
 
 $ionicPlatform.ready(function(){
@@ -26,14 +26,14 @@ $scope.miBoton = false;
   $scope.miBoton = true;
     var name = $('#nameInput').val();
     messagesRef.push({usuario:name});
-    $state.go('tab.chats');
+    $state.go('tab.trivia');
   }
 
 
 
 })
 
-.controller('ChatsCtrl', function($scope,$timeout,$window,$state,$cordovaVibration,$cordovaNativeAudio,$ionicPlatform) {
+.controller('TriviaCtrl', function($scope,$timeout,$window,$state,$cordovaVibration,$cordovaNativeAudio,$ionicPlatform) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -119,6 +119,6 @@ console.log($scope.Preguntas);
 
 })
 
-.controller('AccountCtrl', function($scope) {
+.controller('AutorCtrl', function($scope) {
 
 })
